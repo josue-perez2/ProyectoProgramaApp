@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'src/datos/api_cliente.dart';
-import 'src/datos/opciones_menu.dart';
+import 'src/pantallas/pantalla_canje.dart';
+import 'src/pantallas/pantalla_historico.dart';
 import 'src/pantallas/pantalla_inicio.dart';
 import 'src/pantallas/pantalla_login.dart';
-import 'src/pantallas/pantalla_placeholder.dart';
+import 'src/pantallas/pantalla_perfil.dart';
+import 'src/pantallas/pantalla_recompensas.dart';
 import 'src/pantallas/pantalla_registro.dart';
 import 'src/rutas.dart';
 import 'src/tema/tema_app.dart';
@@ -40,19 +42,33 @@ class ProgramaApp extends StatelessWidget {
 }
 
 Route<Object?>? _generarRuta(RouteSettings settings) {
-  if (settings.name == Rutas.registro) {
-    return MaterialPageRoute<String>(
-      settings: settings,
-      builder: (context) => const PantallaRegistro(),
-    );
+  switch (settings.name) {
+    case Rutas.registro:
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (context) => const PantallaRegistro(),
+      );
+    case Rutas.recompensas:
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (context) => const PantallaRecompensas(),
+      );
+    case Rutas.canje:
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (context) => const PantallaCanje(),
+      );
+    case Rutas.historico:
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (context) => const PantallaHistorico(),
+      );
+    case Rutas.perfil:
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (context) => const PantallaPerfil(),
+      );
   }
 
-  if (settings.name != Rutas.placeholder) return null;
-
-  final OpcionMenu? opcion = settings.arguments as OpcionMenu?;
-
-  return MaterialPageRoute<void>(
-    settings: settings,
-    builder: (context) => PantallaPlaceholder(opcion: opcion),
-  );
+  return null;
 }

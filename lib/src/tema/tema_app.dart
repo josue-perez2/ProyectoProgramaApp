@@ -10,6 +10,7 @@ abstract final class Colores {
   static const textoPrimario = Color(0xFF015443);
   static const textoSecundario = Color(0xFF015443);
   static const textoTarjeta = Color(0xFF055242);
+  static const azulTarjeta = Color(0xFF1D4ED8);
   static const rojoError = Color(0xFFC82909);
 }
 

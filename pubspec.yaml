@@ -72,6 +72,7 @@ flutter:
     - assets/perfilD.png
     - assets/recompensa.png
     - assets/recompensaD.png
+    - assets/recompensaCard.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

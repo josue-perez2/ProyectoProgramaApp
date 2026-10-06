@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../datos/api_cliente.dart';
 import '../datos/opciones_menu.dart';
-import '../rutas.dart';
-import '../tema/tema_app.dart';
+import '../widgets/encabezado_sesion.dart';
 import '../widgets/fondo_decorativo.dart';
 import '../widgets/menu_flotante.dart';
 import '../widgets/tarjeta_seccion.dart';
@@ -16,8 +15,6 @@ class PantallaInicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String nombre = sesion?.nombreCli ?? '';
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: FondoDecorativo(
@@ -31,7 +28,7 @@ class PantallaInicio extends StatelessWidget {
                   children: [
                     FadeInDown(
                       duration: const Duration(milliseconds: 700),
-                      child: _cardBienvenida(nombre),
+                      child: EncabezadoSesion(puntos: sesion?.saldoPuntoCli),
                     ),
                     const SizedBox(height: 24),
                     _filaTarjetas(context, desde: 0),
@@ -82,50 +79,7 @@ class PantallaInicio extends StatelessWidget {
     );
   }
 
-  Widget _cardBienvenida(String nombre) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: Colores.verdePrimario.withValues(alpha: 0.25),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colores.verdeProfundo.withValues(alpha: 0.16),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Bienvenido',
-            style: TextStyle(
-              color: Colores.textoSecundario,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            nombre,
-            style: const TextStyle(
-              color: Colores.textoTarjeta,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _irAPantalla(BuildContext context, {required OpcionMenu opcion}) {
-    Navigator.of(context).pushNamed(Rutas.placeholder, arguments: opcion);
+    Navigator.of(context).pushNamed(opcion.ruta);
   }
 }

@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../datos/api_cliente.dart';
+import '../datos/sesion_actual.dart';
 import '../rutas.dart';
 import '../widgets/campo_formulario.dart';
 import '../widgets/encabezado_logo.dart';
@@ -34,12 +35,14 @@ class _PantallaLoginState extends State<PantallaLogin> {
     setState(() => _enviando = true);
 
     try {
+      final String correo = _correoCtrl.text.trim();
       final Sesion sesion = await ApiCliente.iniciarSesion(
-        correo: _correoCtrl.text.trim(),
+        correo: correo,
         password: _claveCtrl.text,
       );
 
       if (!mounted) return;
+      SesionActual.iniciar(sesion, correo: correo);
       Navigator.of(context).pushReplacementNamed(Rutas.inicio, arguments: sesion);
     } on ApiException catch (e) {
       if (mounted) _mostrarAviso(e.mensaje);
